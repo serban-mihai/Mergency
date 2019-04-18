@@ -18,6 +18,7 @@ class Database():
         self.curr = None
         # self.is_connected = False
 
+    # Utilities for Oracle DB Connection =====================================================
     def connect(self):
         try:
             dsn = cx_Oracle.makedsn(self.host, self.port, service_name=f"{self.name}")
@@ -36,7 +37,8 @@ class Database():
         #self.is_connected = False
         print(f"> DEBUG: {OK}Disconnected{END}")
         return
-        
+    
+    # Base Method for SQL Queries ============================================================
     def query(self, string):
         if(self.conn != None):
             try:
@@ -51,9 +53,10 @@ class Database():
             except Exception as ex:
                 print(f"> DEBUG: {ERR}{ex}{END}")
         else:
-            print(f"> DEBUG: {WAR}Query Failed!{END}")
+            print(f"> DEBUG: {WAR}Connection Lost!{END}")
         return
 
+    # Table Schema Management Methods ========================================================
     def init_tables(self, args):
         tables = []
         tables.append(f"CREATE TABLE {PFIX}{args[0]} (          \
@@ -114,19 +117,41 @@ class Database():
             self.query(f"DROP TABLE {PFIX}{table}")
         return
 
+    # Dedicated Methods fo INSERT like queries ===============================================
     def add_accident(self, accident_id, city, adress, reason='Unknown'):
-        print(f"> DEBUG: Inserting Into: {WAR}{PFIX}Accident{END}")
         arguments = str(inspect.getfullargspec(self.add_accident)[0]).replace("['self', ", "")
         columns = re.sub("[\[\]']", "", arguments)
+        print(f"> DEBUG: Inserting Into: {WAR}{PFIX}Accident{END}")
         self.query(f"INSERT INTO {PFIX}Accident ({columns}) \
                      VALUES({accident_id}, '{city}', '{adress}', '{reason}')")
         self.conn.commit()
         return
 
+    def add_hospital(self, hospital_id, name, adress, ambulance_id=None):
+        arguments = str(inspect.getfullargspec(self.add_accident)[0]).replace("['self', ", "")
+        columns = re.sub("[\[\]']", "", arguments)
+        print(f"> DEBUG: Inserting Into: {WAR}{PFIX}Hospital{END}")
+        self.query(f"INSERT INTO {PFIX}Accident ({columns}) \
+                     VALUES({hospital_id}, '{name}', '{adress}', '{ambulance_id}')")
+        self.conn.commit()
+        return
+
+    def add_bound_H_A(self, hospital_id, ambulance_id):
+        arguments = str(inspect.getfullargspec(self.add_accident)[0]).replace("['self', ", "")
+        columns = re.sub("[\[\]']", "", arguments)
+        print(f"> DEBUG: Inserting Into: {WAR}{PFIX}H_A{END}")
+        self.query(f"INSERT INTO {PFIX}Accident ({columns}) \
+                     VALUES({hospital_id}, {ambulance_id})")
+        self.conn.commit()
+        return
+    
+    # Universal Method for SELECT like queries ===============================================
     def get_info(self, table_name, *args):
-        data = re.sub("[()']", "", str(args))
+        if(len(args) == 1):
+            data = re.sub("[()',]", "", str(args))
+        else:
+            data = re.sub("[()']", "", str(args))
         print(f"> DEBUG: Getting {data} From {WAR}{PFIX}{table_name}{END}")
-        s = f"SELECT {data} FROM {PFIX}{table_name}"
         self.query(f"SELECT {data}  \
                      FROM {PFIX}{table_name}")
         res = self.curr.fetchall()
