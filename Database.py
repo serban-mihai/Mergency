@@ -1,7 +1,11 @@
 import cx_Oracle
+import re
+import inspect
 from Colors import *
 
 __author__ = "Serban Mihai-Ciprian"
+
+PFIX = "Serban_"
 
 class Database():
     def __init__(self, host, name, port, user, password):
@@ -30,7 +34,7 @@ class Database():
         self.conn.close()
         self.conn = None
         #self.is_connected = False
-        print(f"> DEBUG: {WAR}Disconnected{END}")
+        print(f"> DEBUG: {OK}Disconnected{END}")
         return
         
     def query(self, string):
@@ -50,12 +54,81 @@ class Database():
             print(f"> DEBUG: {WAR}Query Failed!{END}")
         return
 
-    def create_table(self, name, *args):
-        q = f"CREATE TABLE IF NOT EXISTS {name}"
-        self.query(q)
+    def init_tables(self, args):
+        tables = []
+        tables.append(f"CREATE TABLE {PFIX}{args[0]} (          \
+                        accident_id NUMBER PRIMARY KEY,         \
+                        city VARCHAR(50) NOT NULL,              \
+                        adress VARCHAR(70) NOT NULL,            \
+                        reason VARCHAR(100) DEFAULT 'Unknown'   \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[1]} (              \
+                        hospital_id NUMBER NOT NULL UNIQUE,         \
+                        ambulance_id NUMBER NOT NULL UNIQUE        \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[2]} (      \
+                        doctor_id NUMBER NOT NULL UNIQUE,   \
+                        patient_id NUMBER NOT NULL UNIQUE   \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[3]} (                          \
+                        hospital_id NUMBER PRIMARY KEY,                         \
+                        name VARCHAR(50) NOT NULL,                              \
+                        adress VARCHAR(70) NOT NULL,                            \
+                        ambulance_id NUMBER REFERENCES {PFIX}H_A(ambulance_id)  \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[4]} (                                  \
+                        ambulance_id NUMBER PRIMARY KEY,                                \
+                        model VARCHAR(50) NOT NULL,                                     \
+                        capacity NUMBER DEFAULT 5 NOT NULL,                             \
+                        license_plate VARCHAR(7) NOT NULL,                              \
+                        dispatched NUMBER(1) DEFAULT 0 NOT NULL,                        \
+                        hospital_id NUMBER REFERENCES {PFIX}H_A(hospital_id)            \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[5]} (                                  \
+                        doctor_id NUMBER PRIMARY KEY,                                   \
+                        name VARCHAR(50) NOT NULL,                                      \
+                        surname VARCHAR(50) NOT NULL,                                   \
+                        birthday DATE NOT NULL,                                         \
+                        available NUMBER(1) DEFAULT 0 NOT NULL,                         \
+                        patient_id NUMBER REFERENCES {PFIX}D_P(patient_id)              \
+                        )")
+        tables.append(f"CREATE TABLE {PFIX}{args[6]} (                                          \
+                        patient_id NUMBER PRIMARY KEY,                                          \
+                        name VARCHAR(50) DEFAULT 'Unknown' NOT NULL,                            \
+                        surname VARCHAR(50) DEFAULT 'Unknown' NOT NULL,                         \
+                        birthday DATE,                                                          \
+                        blood_type VARCHAR(2),                                                  \
+                        rh VARCHAR(1),                                                          \
+                        ambulance_id NUMBER REFERENCES {PFIX}Ambulance(ambulance_id),           \
+                        accident_id NUMBER REFERENCES {PFIX}Accident(accident_id),              \
+                        doctor_id NUMBER REFERENCES {PFIX}D_P(doctor_id)                        \
+                        )")
+        for num, table in enumerate(tables, 0):
+            print(f"> DEBUG: Creating table: {WAR}{PFIX}{args[num]}{END}")
+            self.query(table)
         return 
     
-    def drop_table(self, name):
-        q = f"DROP TABLE {name}"
-        self.query(q)
-        return 
+    def rollback_tables(self, args):
+        for table in reversed(args):
+            print(f"> DEBUG: Dropping table: {WAR}{PFIX}{table}{END}")
+            self.query(f"DROP TABLE {PFIX}{table}")
+        return
+
+    def add_accident(self, accident_id, city, adress, reason='Unknown'):
+        print(f"> DEBUG: Inserting Into: {WAR}{PFIX}Accident{END}")
+        arguments = str(inspect.getfullargspec(self.add_accident)[0]).replace("['self', ", "")
+        columns = re.sub("[\[\]']", "", arguments)
+        self.query(f"INSERT INTO {PFIX}Accident ({columns}) \
+                     VALUES({accident_id}, '{city}', '{adress}', '{reason}')")
+        self.conn.commit()
+        return
+
+    def get_info(self, table_name, *args):
+        data = re.sub("[()']", "", str(args))
+        print(f"> DEBUG: Getting {data} From {WAR}{PFIX}{table_name}{END}")
+        s = f"SELECT {data} FROM {PFIX}{table_name}"
+        self.query(f"SELECT {data}  \
+                     FROM {PFIX}{table_name}")
+        res = self.curr.fetchall()
+        print(res)
+        return
