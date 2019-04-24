@@ -1,0 +1,216 @@
+#:kivy 1.10.1
+#:import Toolbar kivymd.toolbar.Toolbar
+#:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
+#:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
+#:import NavigationDrawerDivider kivymd.navigationdrawer.NavigationDrawerDivider
+#:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
+#:import NavigationDrawerSubheader kivymd.navigationdrawer.NavigationDrawerSubheader
+#:import MDCheckbox kivymd.selectioncontrols.MDCheckbox
+#:import MDSwitch kivymd.selectioncontrols.MDSwitch
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDThemePicker kivymd.theme_picker.MDThemePicker
+#:import Labels Labels
+
+NavigationLayout:
+    id: nav_layout
+    MDNavigationDrawer:
+        id: nav_drawer
+        NavigationDrawerToolbar:
+            title: Labels.NAVIGATION
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: Labels.DASHBOARD
+            on_release: app.root.ids.scr_mngr.current = 'dashboard'
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: Labels.SYSTEM_INSPECTOR
+            on_release: app.root.ids.scr_mngr.current = 'system_inspector'
+        NavigationDrawerIconButton:
+            icon: 'checkbox-blank-circle'
+            text: Labels.SYSTEM_PARAMETERS
+            on_release: app.root.ids.scr_mngr.current = 'system_parameters'
+    BoxLayout:
+        orientation: 'vertical'
+        halign: "center"
+        Toolbar:
+            id: toolbar
+            title: Labels.APPLICATION_NAME
+            md_bg_color: app.theme_cls.primary_color
+            background_palette: 'Primary'
+            background_hue: '500'
+            left_action_items: [['menu', lambda x: app.root.toggle_nav_drawer()]]
+            #right_action_items: [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
+        ScreenManager:
+            id: scr_mngr
+            Screen:
+                name: 'dashboard'
+                MDLabel:
+                    font_style: 'Body1'
+                    theme_text_color: 'Primary'
+                    text: "This is the dashboard!"
+                    size_hint_x:None
+                    width: '250dp'
+                    halign: "center"
+                    pos_hint: {"center_x": 0.50, "center_y": 0.75}
+                MDCheckbox:
+                    id:            grp_chkbox_1
+                    group:        'test'
+                    size_hint:    None, None
+                    size:        dp(48), dp(48)
+                    pos_hint:    {'center_x': 0.25, 'center_y': 0.5}
+                MDCheckbox:
+                    id:            grp_chkbox_2
+                    group:        'test'
+                    size_hint:    None, None
+                    size:        dp(48), dp(48)
+                    pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+                MDSwitch:
+                    size_hint:    None, None
+                    size:        dp(36), dp(48)
+                    pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
+                    _active:        False
+            Screen:
+                name: 'system_inspector'
+                MDLabel:
+                    font_style: 'Body1'
+                    theme_text_color: 'Primary'
+                    text: "This is the system_inspector page!"
+                    size_hint_x:None
+                    width: '250dp'
+                    halign: "center"
+                    pos_hint: {"center_x": 0.50, "center_y": 0.75}
+                MDCheckbox:
+                    id:            grp_chkbox_1
+                    group:        'test'
+                    size_hint:    None, None
+                    size:        dp(48), dp(48)
+                    pos_hint:    {'center_x': 0.25, 'center_y': 0.5}
+                MDCheckbox:
+                    id:            grp_chkbox_2
+                    group:        'test'
+                    size_hint:    None, None
+                    size:        dp(48), dp(48)
+                    pos_hint:    {'center_x': 0.5, 'center_y': 0.5}
+                MDSwitch:
+                    size_hint:    None, None
+                    size:        dp(36), dp(48)
+                    pos_hint:    {'center_x': 0.75, 'center_y': 0.5}
+                    _active:        False
+            Screen:
+                name: 'system_parameters'
+                BoxLayout:
+                    orientation: "horizontal"
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: dp(48)
+                        spacing: 10
+                        MDTextField:
+                            hint_text: "No helper text"
+                            input_filter: "float"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+                            input_filter: "int"
+                        MDTextField:
+                            hint_text: "No helper text"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: dp(48)
+                        spacing: 10
+                        MDTextField:
+                            hint_text: "No helper text"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+                        MDTextField:
+                            hint_text: "No helper text"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+            Screen:
+                name: 'textfields'
+                ScrollView:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: self.minimum_height
+                        padding: dp(48)
+                        spacing: 10
+                        MDTextField:
+                            hint_text: "No helper text"
+                        MDTextField:
+                            hint_text: "Helper text on focus"
+                            helper_text: "This will disappear when you click off"
+                            helper_text_mode: "on_focus"
+                        MDTextField:
+                            hint_text: "Persistent helper text"
+                            helper_text: "Text is always here"
+                            helper_text_mode: "persistent"
+                        MDTextField:
+                            id: text_field_error
+                            hint_text: "Helper text on error (Hit Enter with two characters here)"
+                            helper_text: "Two is my least favorite number"
+                            helper_text_mode: "on_error"
+                        MDTextField:
+                            hint_text: "Max text length = 10"
+                            max_text_length: 10
+                        MDTextField:
+                            hint_text: "required = True"
+                            required: True
+                            helper_text_mode: "on_error"
+                        MDTextField:
+                            multiline: True
+                            hint_text: "Multi-line text"
+                            helper_text: "Messages are also supported here"
+                            helper_text_mode: "persistent"
+                        MDTextField:
+                            hint_text: "color_mode = \'accent\'"
+                            color_mode: 'accent'
+                        MDTextField:
+                            hint_text: "color_mode = \'custom\'"
+                            color_mode: 'custom'
+                            helper_text_mode: "on_focus"
+                            helper_text: "Color is defined by \'line_color_focus\' property"
+                            line_color_focus: self.theme_cls.opposite_bg_normal  # This is the color used by the textfield
+                        MDTextField:
+                            hint_text: "disabled = True"
+                            disabled: True
+            Screen:
+                name: 'nav_drawer'
+                HackedDemoNavDrawer:
+                    # NavigationDrawerToolbar:
+                    #     title: "Navigation Drawer Widgets"
+                    NavigationDrawerIconButton:
+                        icon: 'checkbox-blank-circle'
+                        text: "Badge text ---->"
+                        badge_text: "99+"
+                    NavigationDrawerIconButton:
+                        active_color_type: 'accent'
+                        text: "Accent active color"
+                    NavigationDrawerIconButton:
+                        active_color_type: 'custom'
+                        text: "Custom active color"
+                        active_color: [1, 0, 1, 1]
+                    NavigationDrawerIconButton:
+                        use_active: False
+                        text: "Use active = False"
+                    NavigationDrawerIconButton:
+                        text: "Different icon"
+                        icon: 'alarm'
+                    NavigationDrawerDivider:
+                    NavigationDrawerSubheader:
+                        text: "NavigationDrawerSubheader"
+                    NavigationDrawerIconButton:
+                        text: "NavigationDrawerDivider \/"
+                    NavigationDrawerDivider:
