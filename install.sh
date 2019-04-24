@@ -7,11 +7,18 @@ fi
 
 echo "Mergency Installer"
 
-apt update
-apt upgrade
-apt install wget
-apt install libaio1
-apt instll libaio-dev
+apt update -y
+apt upgrade -y
+apt install wget -y
+apt install libaio1 -y
+apt install libaio-dev -y
+apt install python3.6 -y
+apt install pip3 -y
+
+apt install xclip xsel -y
+git clone https://github.com/HeaTTheatR/KivyMD.git
+python3.6 KivyMD/setup.py install
+rm -r KivyMD
 
 echo "May require login with an Oracle Account"
 wget http://download.oracle.com/otn/linux/instantclient/11204/instantclient-basic-linux.x64-11.2.0.4.0.zip

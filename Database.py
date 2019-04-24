@@ -185,7 +185,7 @@ class Database():
         self.add_ambulance(2, "Audi", "SV 01 RAN")
         self.add_ambulance(3, "Mustang", "SV 43 UNK", 10, 1)
         self.add_doctor(1, "Ion", "Vasile", "TO_DATE('1989-12-09','YYYY-MM-DD')", 1)
-        self.add_patient(1, "Laura", "Popescu", "TO_DATE('1989-12-09','YYYY-MM-DD')", "AB", "+", 1, 1)
+        self.add_patient(1, "Laura", "Popescu", "TO_DATE('1996-03-22','YYYY-MM-DD')", "AB", "+", 1, 1)
         return
 
     def dummy_select(self):

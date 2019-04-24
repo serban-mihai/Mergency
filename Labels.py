@@ -1,0 +1,5 @@
+APPLICATION_NAME = "Mergency"
+NAVIGATION = "Navigation"
+DASHBOARD = "Dashboard"
+SYSTEM_INSPECTOR = "System Inspector"
+SYSTEM_PARAMETERS = "System Parameters"
