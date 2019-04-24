@@ -12,7 +12,7 @@ from kivy.uix.widget import Widget
 __author__ = "Serban Mihai-Ciprian"
 
 # Table creation order must be kept in order to work
-DB_SCHEMA = ["Accident", "H_A", "D_P", "Hospital", "Ambulance", "Doctor", "Pacient"]
+DB_SCHEMA = ["Accident", "Hospital", "Ambulance", "Doctor", "Patient", "H_A", "D_P"]
 
 class ManageTab(Widget):
     pass
@@ -22,14 +22,8 @@ class Mergency(App):
     db.connect()
     if(db.conn != None):
         db.init_tables(DB_SCHEMA)
-        db.add_accident(1, "Suceava", "Strada Marasesti", "Betivan la Volan")
-        db.add_accident(2, "Botosani", "Parcul Mihai Eminescu")
-        db.add_bound_H_A(1, 1)
-        db.add_hospital(1, "Spitalul Judetean", "Calea Unirii", 1)
-        db.add_hospital(2, "Spitalul Judetean", "Calea Unirii")
-        db.get_info("Accident", "accident_id", "city", "adress", "reason")
-        # 
-        db.get_info("Hospital", "hospital_id", "name", "adress", "ambulance_id")
+        db.dummy_insert()
+        db.dummy_select()
         db.rollback_tables(DB_SCHEMA)
     else:
         pass
