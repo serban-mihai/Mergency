@@ -26,17 +26,23 @@ class Database():
             self.conn = cx_Oracle.connect(self.user, self.password, dsn)
             # self.is_connected = True
             print(f"> DEBUG: {OK}Connected{END} ")
+            return
         except cx_Oracle.Error as err:
             print(f"> DEBUG: {ERR}{err}{END}")
+            return
         except Exception as ex:
             print(f"> DEBUG: {ERR}{ex}{END}")
-        return
+            return
 
     def disconnect(self):
-        self.conn.close()
-        self.conn = None
-        print(f"> DEBUG: {OK}Disconnected{END}")
-        return
+        try:
+            self.conn.close()
+            self.conn = None
+            print(f"> DEBUG: {OK}Disconnected{END}")
+            return
+        except Exception as ex:
+            print(f"> DEBUG: {ERR}{ex}{END}")
+            return
     
     # Base Method for SQL Queries ============================================================
     def query(self, string):
