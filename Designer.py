@@ -625,8 +625,6 @@ database = '''
             pos_hint: {'center_x': .5, 'center_y': .25}
             spacing: dp(15)
 
-
-
             MDTextField:
                 id: host
                 hint_text: "Host"
@@ -1006,138 +1004,40 @@ about = '''
 <About@Screen>
     name: 'about'
 
-    ScrollView:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
-        GridLayout:
-            cols: 1
-            size_hint_y: None
-            height: self.minimum_height
-            spacing: dp(10)
-            padding: dp(10)
+    Image:
+        source: 'assets/logo_final.png'
+        size_hint: 0.5, None
+        x: 200
+        y: 400
+        allow_stretch: False
+        keep_ratio: True
 
-            MyBoxLayout:
+    GridLayout:
+        cols: 1
+        size_hint_y: None
+        height: self.minimum_height
+        spacing: dp(10)
+        padding: dp(10)
 
-                MyMDLabel:
-                    font_style: 'Overline'
-                    theme_text_color: 'Primary'
-                    text: "Overline label"
-                    halign: 'center'
+        MyMDLabel:
+            font_style: 'H5'
+            theme_text_color: 'Primary'
+            text: "Welcome to Mergency"
+            halign: 'center'
 
-                MyMDLabel:
-                    font_style: 'Caption'
-                    theme_text_color: 'Primary'
-                    text: "Caption label"
-                    halign: 'center'
+        MyMDLabel:
+            font_style: 'H6'
+            theme_text_color: 'Primary'
+            text: "Use the navigator on the top left to get ready"
+            halign: 'center'
 
-                MyMDLabel:
-                    font_style: 'Button'
-                    theme_text_color: 'Primary'
-                    text: "Button label"
-                    halign: 'center'
-
-            MyBoxLayout:
-
-                MyMDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Body1 label"
-                    halign: 'center'
-
-                MyMDLabel:
-                    font_style: 'Body2'
-                    theme_text_color: 'Primary'
-                    text: "Body2 label"
-                    halign: 'center'
-
-            MyBoxLayout:
-
-                MyMDLabel:
-                    font_style: 'Subtitle1'
-                    theme_text_color: 'Primary'
-                    text: "Subtitle1 label"
-                    halign: 'center'
-
-                MyMDLabel:
-                    font_style: 'Subtitle2'
-                    theme_text_color: 'Primary'
-                    text: "Subtitle2 label"
-                    halign: 'center'
-
-            MyMDLabel:
-                font_style: 'H1'
-                theme_text_color: 'Primary'
-                text: "H1 label"
-                halign: 'center'
-                #size_hint_y: None
-                #height: self.texture_size[1] + dp(4)
-
-            MyMDLabel:
-                font_style: 'H2'
-                theme_text_color: 'Primary'
-                text: "H2 label"
-                halign: 'center'
-                #size_hint_y: None
-                #height: self.texture_size[1] + dp(4)
-
-            MyMDLabel:
-                font_style: 'H3'
-                theme_text_color: 'Primary'
-                text: "H3 label"
-                halign: 'center'
-
-            MyMDLabel:
-                font_style: 'H4'
-                theme_text_color: 'Primary'
-                text: "H4 label"
-                halign: 'center'
-
-            MyBoxLayout:
-
-                MyMDLabel:
-                    font_style: 'H5'
-                    theme_text_color: 'Primary'
-                    text: "H5 label"
-                    halign: 'center'
-
-                MyMDLabel:
-                    font_style: 'H6'
-                    theme_text_color: 'Primary'
-                    text: "H6 label"
-                    halign: 'center'
-
-            MyBoxLayout:
-
-                MyMDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Primary'
-                    text: "Primary color"
-                    halign: 'center'
-
-                MyMDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Secondary'
-                    text: "Secondary color"
-                    halign: 'center'
-
-            MyBoxLayout:
-
-                MyMDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Hint'
-                    text: "Hint color"
-                    halign: 'center'
-                MyMDLabel:
-                    font_style: 'Body1'
-                    theme_text_color: 'Error'
-                    text: "Error color"
-                    halign: 'center'
-
-            MyMDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Custom'
-                text_color: (0,1,0,.4)
-                text: "Custom"
-                halign: 'center'
 '''
 
 menu = '''

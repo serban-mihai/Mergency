@@ -1,12 +1,12 @@
-from kivy.config import Config
-Config.set('graphics', 'resizable', '0') #0 being off 1 being on as in true/false
-Config.set('graphics', 'width', '800')
-Config.set('graphics', 'height', '600')
-
 import os
 import sys
 sys.path.append(os.path.abspath(__file__).split('demos')[0])
 os.environ["KIVY_NO_CONSOLELOG"] = "1"
+
+from kivy.config import Config
+Config.set('graphics', 'resizable', '0') #0 being off 1 being on as in true/false
+Config.set('graphics', 'width', '800')
+Config.set('graphics', 'height', '600')
 
 import kivy
 kivy.require('1.10.1')
@@ -613,11 +613,8 @@ class Mergency(App, Designer):
 
     # CUSTOM ========================================================================
     def button_connect(self, host, service, port, user, password):
-        if(self.db == None):
-            self.db = Database(host, service, port, user, password)
-            self.db.connect()
-        else:
-            pass
+        self.db = Database(host, service, port, user, password)
+        self.db.connect()
         return
 
     def button_disconnect(self):

@@ -137,4 +137,17 @@ NavigationLayout:
             Screen:
                 name: 'previous'
                 FloatLayout:
-                    
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 0
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+
+                    Image:
+                        source: 'assets/logo_final.png'
+                        size_hint: 0.5, None
+                        x: 200
+                        y: 400
+                        allow_stretch: False
+                        keep_ratio: True
