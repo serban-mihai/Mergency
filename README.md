@@ -1,9 +1,9 @@
-Mergency - Ambulance Sync
+# Mergency - Ambulance Sync
 
 Mergency este o aplicatie desktop care permite gestionarea ambulantelor al mai multora
 spitale in situatii de emergenta precum accidentele sau emergentele de orice fel.
 
-Baza de date Oracle va retine urmatoarele entitati:
+## Baza de date Oracle va retine urmatoarele entitati:
 - Accident
 - Hospital
 - Ambulance
