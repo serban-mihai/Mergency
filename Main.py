@@ -615,7 +615,6 @@ class Mergency(App, Designer):
     def button_connect(self, host, service, port, user, password):
         if(self.db == None):
             self.db = Database(host, service, port, user, password)
-            # self.db = Database("80.96.123.131", "ora09", "1521", "hr", "oracletest")
             self.db.connect()
         else:
             pass
@@ -640,7 +639,7 @@ class Mergency(App, Designer):
 
     def dummy_pop(self):
         if(self.db != None):
-            db.rollback_tables(DB_SCHEMA)
+            self.db.rollback_tables(DB_SCHEMA)
         else:
             pass
         return

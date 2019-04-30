@@ -98,6 +98,9 @@
     MyNavigationDrawerIconButton:
         text: "About"
         icon: 'information-outline'
+        on_release:
+            app.show_about()
+            app.set_title_toolbar(self.text)
     # DUMMY PUSH =======================================================
     MyNavigationDrawerIconButton:
         text: "Dummy PUSH"

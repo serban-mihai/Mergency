@@ -989,7 +989,7 @@ progress_bar = '''
                 value: progress_slider.value
 '''
 
-labels = '''
+about = '''
 #:import MDLabel kivymd.label.MDLabel
 
 
@@ -1003,8 +1003,8 @@ labels = '''
     height: self.minimum_height
 
 
-<Labels@Screen>
-    name: 'labels'
+<About@Screen>
+    name: 'about'
 
     ScrollView:
 
@@ -1564,7 +1564,6 @@ md_icons = '''
                 orientation: 'vertical'
 '''
 
-
 class Designer(object):
     manager_swiper = None
     main_widget = None
@@ -1781,14 +1780,14 @@ class Designer(object):
             self.main_widget.ids.scr_mngr.add_widget(self.accordion)
         self.main_widget.ids.scr_mngr.current = 'accordion'
 
-    labels = None
+    about = None
 
-    def show_labels(self):
-        if not self.labels:
-            Builder.load_string(labels)
-            self.labels = Factory.Labels()
-            self.main_widget.ids.scr_mngr.add_widget(self.labels)
-        self.main_widget.ids.scr_mngr.current = 'labels'
+    def show_about(self):
+        if not self.about:
+            Builder.load_string(about)
+            self.about = Factory.About()
+            self.main_widget.ids.scr_mngr.add_widget(self.about)
+        self.main_widget.ids.scr_mngr.current = 'about'
 
     chips = None
 
