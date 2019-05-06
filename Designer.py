@@ -240,10 +240,11 @@ manager = '''
 #:import MDLabel kivymd.label.MDLabel
 #:import MDCheckbox kivymd.selectioncontrols.MDCheckbox
 
+#:import SmartTileWithStar kivymd.imagelists.SmartTileWithStar
+#:import SmartTileWithLabel kivymd.imagelists.SmartTileWithLabel
 
 <Manager@Screen>
     name: 'manager'
-
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'
@@ -253,12 +254,31 @@ manager = '''
             name: 'accidents'
             text: "Accidents"
             icon: "playlist-play"
+            # on_enter: app.add_patients(grid_card)
 
-            MDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Primary'
-                text: "List of accidents"
-                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: grid_card
+                    cols: 1
+                    row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
+                    row_force_default: True
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: 100
+                    padding: dp(25), dp(25)
+                    spacing: dp(10)
+
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+                    MDCardPost:
+
 
         MDTab:
             name: 'hospitals'

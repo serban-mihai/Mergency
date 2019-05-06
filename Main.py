@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath(__file__).split('demos')[0])
-os.environ["KIVY_NO_CONSOLELOG"] = "1"
+# os.environ["KIVY_NO_CONSOLELOG"] = "1"
 
 from kivy.config import Config
 Config.set('graphics', 'resizable', '0') #0 being off 1 being on as in true/false
@@ -54,8 +54,7 @@ def toast(text):
 
 class Mergency(App, Designer):
     theme_cls = ThemeManager()
-    theme_cls.primary_palette = 'Orange'
-    theme_cls.accent_palette = 'Blue'
+    theme_cls.accent_palette = 'Orange'
     previous_date = ObjectProperty()
     title = "Mergency"
     theme_cls.theme_style = 'Dark'
@@ -300,6 +299,37 @@ class Mergency(App, Designer):
                               "And he likes to play in the garden.",
                     with_image=True, swipe=True, callback=callback,
                     buttons=buttons))
+
+    def add_patients(self, instance_grid_card):
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        if not self.cards_created:
+            self.cards_created = True
+            menu_items = [
+                {'viewclass': 'MDMenuItem',
+                 'text': 'Remove',
+                 'callback': self.callback_for_menu_items}
+            ]
+
+            for _ in range(7):
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        text_post='Card with a button to open the menu MDDropDown',
+                        callback=callback))
 
     def update_screen(self, instance):
         """Set new label on the screen UpdateSpinner."""

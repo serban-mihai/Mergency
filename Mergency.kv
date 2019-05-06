@@ -129,11 +129,12 @@ NavigationLayout:
             elevation: 10
             left_action_items:
                 [['menu', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items:
-                [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
+            # right_action_items:
+            #     [['dots-vertical', lambda x: app.root.toggle_nav_drawer()]]
         ScreenManager:
             id: scr_mngr
             transition: NoTransition()
+            # SPLASH SCREEN ============================================
             Screen:
                 name: 'previous'
                 FloatLayout:
