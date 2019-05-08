@@ -322,13 +322,18 @@ class Mergency(App, Designer):
                 {'viewclass': 'MDMenuItem',
                  'text': 'Remove',
                  'callback': self.callback_for_menu_items}
+                 for _ in range(1)
             ]
 
             for _ in range(7):
                 instance_grid_card.add_widget(
                     MDCardPost(
                         right_menu=menu_items, swipe=True,
-                        text_post='Card with a button to open the menu MDDropDown',
+                        name_data='Surname First-Name\nID: 01',
+                        tile_font_style='H4',
+                        path_to_avatar='assets/facebook-flat-round.png',
+                        card_size=(Window.width - 600, Window.height - 480),
+                        text_post='Birthday: \nBlood Type: \nRH: ',
                         callback=callback))
 
     def update_screen(self, instance):

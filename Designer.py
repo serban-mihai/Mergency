@@ -254,7 +254,7 @@ manager = '''
             name: 'accidents'
             text: "Accidents"
             icon: "playlist-play"
-            # on_enter: app.add_patients(grid_card)
+            on_enter: app.add_patients(grid_card)
 
             ScrollView:
                 do_scroll_x: False
@@ -262,22 +262,14 @@ manager = '''
                 GridLayout:
                     id: grid_card
                     cols: 1
-                    row_default_height: (self.width - self.cols*self.spacing[0])/self.cols
-                    row_force_default: True
+                    row_default_height: 1
+                    #row_default_height: 100
+                    row_force_default: False
                     size_hint_y: None
                     height: self.minimum_height
-                    width: 100
+                    width: self.minimum_width
                     padding: dp(25), dp(25)
-                    spacing: dp(10)
-
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
-                    MDCardPost:
+                    spacing: dp(10)                   
 
 
         MDTab:
