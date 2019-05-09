@@ -59,7 +59,7 @@ class Database():
             except Exception as ex:
                 print(f"> DEBUG: {ERR}{ex}{END}")
         else:
-            print(f"> DEBUG: {WAR}Connection Lost!{END}")
+            print(f"> DEBUG: {ERR}Connection Lost!{END}")
         return
 
     # Table Schema Management Methods ========================================================
@@ -128,7 +128,10 @@ class Database():
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Accident{END}")
         self.query(f"INSERT INTO {PFIX}Accident ({columns}) \
                      VALUES({accident_id}, '{city}', '{adress}', '{reason}')")
-        self.conn.commit()
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
         return
 
     def add_hospital(self, hospital_id, name, adress):
@@ -137,7 +140,10 @@ class Database():
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Hospital{END}")
         self.query(f"INSERT INTO {PFIX}Hospital ({columns}) \
                      VALUES({hospital_id}, '{name}', '{adress}')")
-        self.conn.commit()
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
         return
 
     def add_ambulance(self, ambulance_id, model, license_plate, capacity=5, dispatched=0):
@@ -146,7 +152,10 @@ class Database():
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Ambulance{END}")
         self.query(f"INSERT INTO {PFIX}Ambulance ({columns}) \
                      VALUES({ambulance_id}, '{model}', '{license_plate}', {capacity}, {dispatched})")
-        self.conn.commit()
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
         return
 
     def add_doctor(self, doctor_id, name, surname, birthday, available=0):
@@ -155,7 +164,10 @@ class Database():
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Doctor{END}")
         self.query(f"INSERT INTO {PFIX}Doctor ({columns}) \
                      VALUES({doctor_id}, '{name}', '{surname}', {birthday}, {available})")
-        self.conn.commit()
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
         return
 
     def add_patient(self, patient_id, name, surname, birthday, blood_type, rh, ambulance_id=None, accident_id=None):
@@ -164,7 +176,10 @@ class Database():
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Patient{END}")
         self.query(f"INSERT INTO {PFIX}Patient ({columns}) \
                      VALUES({patient_id}, '{name}', '{surname}', {birthday}, '{blood_type}', '{rh}', {ambulance_id}, {accident_id})")
-        self.conn.commit()
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
         return
     
     # Universal Method for SELECT like queries ===============================================
@@ -176,8 +191,11 @@ class Database():
         print(f"> DEBUG: Getting {data} From {WAR}{PFIX}{table_name}{END}")
         self.query(f"SELECT {data}  \
                      FROM {PFIX}{table_name}")
-        res = self.curr.fetchall()
-        pprint(res)
+        try:
+            res = self.curr.fetchall()
+            pprint(res)
+        except Exception:
+            pass
         return
 
     # DEV TOOLS ===============================================================================
