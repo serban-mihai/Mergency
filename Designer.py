@@ -245,22 +245,28 @@ manager = '''
 
 <Manager@Screen>
     name: 'manager'
+    # on_enter:
+    #     app.get_accidents(accidents)
+    #     app.get_hospitals(hospitals)
+    #     app.get_ambulances(ambulances)
+    #     app.get_doctors(doctors)
+    #     app.get_patients(patients)
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'
         tab_width_mode: 'stacked'
-
+        
         MDTab:
             name: 'accidents'
             text: "Accidents"
-            icon: "playlist-play"
-            on_enter: app.add_patients(grid_card)
+            icon: "playlist-play"  
+            on_tab_press: app.get_accidents(accidents)
 
             ScrollView:
                 do_scroll_x: False
 
                 GridLayout:
-                    id: grid_card
+                    id: accidents
                     cols: 1
                     row_default_height: 1
                     #row_default_height: 100
@@ -268,53 +274,99 @@ manager = '''
                     size_hint_y: None
                     height: self.minimum_height
                     width: self.minimum_width
-                    padding: dp(25), dp(25)
-                    spacing: dp(10)                   
+                    padding: 0, dp(25)
+                    spacing: dp(10)               
 
 
         MDTab:
             name: 'hospitals'
             text: 'Hospitals'
             icon: "movie"
+            on_tab_press: app.get_hospitals(hospitals)
 
-            MDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Primary'
-                text: "List of hospitals"
-                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: hospitals
+                    cols: 1
+                    row_default_height: 1
+                    #row_default_height: 100
+                    row_force_default: False
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: self.minimum_width
+                    padding: 0, dp(25)
+                    spacing: dp(10)
 
         MDTab:
             name: 'ambulances'
             text: 'Ambulances'
             icon: "language-python"
+            on_tab_press: app.get_ambulances(ambulances)
 
-            MDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Primary'
-                text: "List of ambulances"
-                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: ambulances
+                    cols: 1
+                    row_default_height: 1
+                    #row_default_height: 100
+                    row_force_default: False
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: self.minimum_width
+                    padding: 0, dp(25)
+                    spacing: dp(10)
 
         MDTab:
             name: 'doctors'
             text: 'Doctors'
             icon: "language-cpp"
+            on_tab_press: app.get_doctors(doctors)
 
-            MDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Primary'
-                text: "List of doctors"
-                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: doctors
+                    cols: 1
+                    row_default_height: 1
+                    #row_default_height: 100
+                    row_force_default: False
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: self.minimum_width
+                    padding: 0, dp(25)
+                    spacing: dp(10)
 
         MDTab:
             name: 'patients'
             text: 'Patients'
             icon: "language-php"
+            on_tab_press: app.get_patients(patients)
 
-            MDLabel:
-                font_style: 'Body1'
-                theme_text_color: 'Primary'
-                text: "List of patients"
-                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: patients
+                    cols: 1
+                    row_default_height: 1
+                    #row_default_height: 100
+                    row_force_default: False
+                    size_hint_y: None
+                    height: self.minimum_height
+                    width: self.minimum_width
+                    padding: 0, dp(25)
+                    spacing: dp(10)
+            
+            # MDLabel:
+            #     font_style: 'Body1'
+            #     theme_text_color: 'Primary'
+            #     text: "List of doctors"
+            #     halign: 'center'
 '''
 
 pickers = '''

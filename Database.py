@@ -87,6 +87,7 @@ class Database():
                         doctor_id NUMBER PRIMARY KEY,                                   \
                         name VARCHAR(50) NOT NULL,                                      \
                         surname VARCHAR(50) NOT NULL,                                   \
+                        sex VARCHAR(1) DEFAULT 'M' NOT NULL,                                      \
                         birthday DATE NOT NULL,                                         \
                         available NUMBER(1) DEFAULT 0 NOT NULL                         \
                         )")
@@ -94,6 +95,7 @@ class Database():
                         patient_id NUMBER PRIMARY KEY,                                          \
                         name VARCHAR(50) DEFAULT 'Unknown' NOT NULL,                            \
                         surname VARCHAR(50) DEFAULT 'Unknown' NOT NULL,                         \
+                        sex VARCHAR(1) DEFAULT 'M' NOT NULL,                         \
                         birthday DATE,                                                          \
                         blood_type VARCHAR(2),                                                  \
                         rh VARCHAR(1),                                                          \
@@ -158,24 +160,24 @@ class Database():
             pass
         return
 
-    def add_doctor(self, doctor_id, name, surname, birthday, available=0):
+    def add_doctor(self, doctor_id, name, surname, sex, birthday, available=1):
         arguments = str(inspect.getfullargspec(self.add_doctor)[0]).replace("['self', ", "")
         columns = re.sub("[\[\]']", "", arguments)
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Doctor{END}")
         self.query(f"INSERT INTO {PFIX}Doctor ({columns}) \
-                     VALUES({doctor_id}, '{name}', '{surname}', {birthday}, {available})")
+                     VALUES({doctor_id}, '{name}', '{surname}', '{sex}', {birthday}, {available})")
         try:
             self.conn.commit()
         except Exception:
             pass
         return
 
-    def add_patient(self, patient_id, name, surname, birthday, blood_type, rh, ambulance_id=None, accident_id=None):
+    def add_patient(self, patient_id, name, surname, sex, birthday, blood_type, rh, ambulance_id=None, accident_id=None):
         arguments = str(inspect.getfullargspec(self.add_patient)[0]).replace("['self', ", "")
         columns = re.sub("[\[\]']", "", arguments)
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Patient{END}")
         self.query(f"INSERT INTO {PFIX}Patient ({columns}) \
-                     VALUES({patient_id}, '{name}', '{surname}', {birthday}, '{blood_type}', '{rh}', {ambulance_id}, {accident_id})")
+                     VALUES({patient_id}, '{name}', '{surname}', '{sex}', {birthday}, '{blood_type}', '{rh}', {ambulance_id}, {accident_id})")
         try:
             self.conn.commit()
         except Exception:
@@ -196,20 +198,48 @@ class Database():
             pprint(res)
         except Exception:
             pass
-        return
+        return res
 
     # DEV TOOLS ===============================================================================
     def dummy_insert(self):
         print(f"{WAR}INSERT ========================================================================{END}")
+        # REMEMBER to implement increment id and modify above
         self.add_accident(1, "Suceava", "Strada Marasesti", "Betivan la Volan")
         self.add_accident(2, "Botosani", "Parcul Mihai Eminescu")
+        self.add_accident(3, "Suceava", "Strada Tipografiei", "Accident de masina")
+        self.add_accident(4, "Suceava", "Bulevardul George Enescu", "Cadere de la etaj")
+        self.add_accident(5, "Piatra Neamt", "Strada Florilor")
+        self.add_accident(6, "Botosani", "Parcul Voda", "Dezastru natural")
+        self.add_accident(7, "Gura Humorului", "Strada Dacilor", "Incendiu in apartament")
+        self.add_accident(8, "Suceava", "Bulevardul Victoriei")
+        self.add_accident(9, "Suceava", "Strada Cuza")
+        self.add_accident(10, "Radauti", "Parcul Carol", "Jaf armat la magazin")
         self.add_hospital(1, "Spitalul Comunal", "Universitate")
         self.add_hospital(2, "Spitalul Judetean", "Calea Unirii")
         self.add_ambulance(1, "Toyota", "SV 12 DAX", 5, 0)
         self.add_ambulance(2, "Audi", "SV 01 RAN")
-        self.add_ambulance(3, "Mustang", "SV 43 UNK", 10, 1)
-        self.add_doctor(1, "Ion", "Vasile", "TO_DATE('1989-12-09','YYYY-MM-DD')", 1)
-        self.add_patient(1, "Laura", "Popescu", "TO_DATE('1996-03-22','YYYY-MM-DD')", "AB", "+", 1, 1)
+        self.add_ambulance(3, "Mustang", "SV 43 UNK", 1)
+        self.add_ambulance(4, "Dacia", "SV 67 LGD", 0)
+        self.add_ambulance(5, "Toyota", "NT 09 DGW", 7, 1)
+        self.add_ambulance(6, "Audi", "BT 12 PWN", 10, 0)
+        self.add_doctor(1, "Ion", "Vasile", "M", "TO_DATE('1989-12-09','YYYY-MM-DD')", 1)
+        self.add_doctor(2, "Bianca", "Cazacu", "F", "TO_DATE('1969-10-22','YYYY-MM-DD')", 0)
+        self.add_doctor(3, "Dumitru", "Pelinescu", "M", "TO_DATE('1955-05-09','YYYY-MM-DD')", 1)
+        self.add_doctor(4, "Dimitrie", "Random", "M", "TO_DATE('1976-02-09','YYYY-MM-DD')", 1)
+        self.add_doctor(5, "Ionela", "Ilote", "F", "TO_DATE('1981-09-09','YYYY-MM-DD')", 1)
+        self.add_doctor(6, "Teodora", "Bors", "F", "TO_DATE('1953-08-09','YYYY-MM-DD')", 0)
+        self.add_doctor(7, "Mihai", "Ungureanu", "M", "TO_DATE('1977-11-09','YYYY-MM-DD')", 1)
+        self.add_patient(1, "Laura", "Popescu", "F", "TO_DATE('1996-03-22','YYYY-MM-DD')", "AB", "+", 1, 1)
+        self.add_patient(2, "Oana", "Mosneagu", "F", "TO_DATE('1986-11-04','YYYY-MM-DD')", "0", "-", 1, 1)
+        self.add_patient(3, "Marius", "Luparu", "M", "TO_DATE('1954-01-11','YYYY-MM-DD')", "B", "+", 1, 1)
+        self.add_patient(4, "Dragos", "Creanga", "M", "TO_DATE('1987-04-01','YYYY-MM-DD')", "A", "-", 1, 1)
+        self.add_patient(5, "Mihai-Ciprian", "Serban", "M", "TO_DATE('1944-11-22','YYYY-MM-DD')", "0", "-", 1, 1)
+        self.add_patient(6, "Maria", "Tenciu", "F", "TO_DATE('2002-06-28','YYYY-MM-DD')", "0", "+", 1, 1)
+        self.add_patient(7, "Diana", "Damian", "F", "TO_DATE('2010-08-21','YYYY-MM-DD')", "AB", "+", 1, 1)
+        self.add_patient(8, "Alin", "Rosu", "M", "TO_DATE('2003-10-08','YYYY-MM-DD')", "A", "-", 1, 1)
+        self.add_patient(9, "Paul", "Serban", "M", "TO_DATE('2002-06-13','YYYY-MM-DD')", "0", "+", 1, 1)
+        self.add_patient(10, "Geanina", "Random", "F", "TO_DATE('1997-03-17','YYYY-MM-DD')", "A", "-", 1, 1)
+        self.add_patient(11, "Radu", "Bradea", "M", "TO_DATE('1999-12-09','YYYY-MM-DD')", "B", "+", 1, 1)
         return
 
     def dummy_select(self):

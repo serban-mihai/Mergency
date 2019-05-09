@@ -94,13 +94,19 @@ class Mergency(App, Designer):
                        self.directory),
                    '{}/assets/guitar-1139397_1280_crop.png'.format(
                        self.directory))
-        
+        # DB Data =======================================================
         self.db = None
         self.host = StringProperty(None)
         self.user = StringProperty(None)
         self.password = StringProperty(None)
         self.service = StringProperty(None)
         self.port = StringProperty(None)
+        # TABS Data =====================================================
+        self.accidents = None
+        self.hospitals = None
+        self.ambulances = None
+        self.doctors = None
+        self.patients = None
 
     def crop_image_for_tile(self, instance, size, path_to_crop_image):
         """Crop images for Grid screen."""
@@ -300,41 +306,7 @@ class Mergency(App, Designer):
                     with_image=True, swipe=True, callback=callback,
                     buttons=buttons))
 
-    def add_patients(self, instance_grid_card):
-        """Adds MDCardPost objects to the screen Cards
-        when the screen is open."""
-
-        from kivymd.cards import MDCardPost
-
-        def callback(instance, value):
-            if value is None:
-                toast('Delete post %s' % str(instance))
-            elif isinstance(value, int):
-                toast('Set like in %d stars' % value)
-            elif isinstance(value, str):
-                toast('Repost with %s ' % value)
-            elif isinstance(value, list):
-                toast(value[1])
-
-        if not self.cards_created:
-            self.cards_created = True
-            menu_items = [
-                {'viewclass': 'MDMenuItem',
-                 'text': 'Remove',
-                 'callback': self.callback_for_menu_items}
-                 for _ in range(1)
-            ]
-
-            for _ in range(7):
-                instance_grid_card.add_widget(
-                    MDCardPost(
-                        right_menu=menu_items, swipe=True,
-                        name_data='Surname First-Name\nID: 01',
-                        tile_font_style='H4',
-                        path_to_avatar='assets/facebook-flat-round.png',
-                        card_size=(Window.width - 600, Window.height - 480),
-                        text_post='Birthday: \nBlood Type: \nRH: ',
-                        callback=callback))
+   
 
     def update_screen(self, instance):
         """Set new label on the screen UpdateSpinner."""
@@ -674,6 +646,250 @@ class Mergency(App, Designer):
             self.db.rollback_tables(DB_SCHEMA)
         else:
             pass
+        return
+    # IMPORTANT
+    # Need to separate these methods into update and refresh for correct
+    # content management, at this moment everytime a tab is accesed it
+    # just adds again the content of the DB table over the old one!
+    # FIX ASAP!
+    def get_accidents(self, instance_grid_card):
+        print("ACCIDENTS --------------------------------------------------------------")
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        menu_items = [
+            {'viewclass': 'MDMenuItem',
+            'text': 'Remove',
+            'callback': self.callback_for_menu_items}
+            for _ in range(1)
+        ]
+        # Implement a method to check empty tables and change above!
+        if(self.db != None):
+            try:
+                self.accidents = self.db.get_info("Accident", "*")
+            except Exception as ex:
+                print(ex)
+                return
+            for _ in range(len(self.accidents)):
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        name_data=f"County: {self.accidents[_][1]}\nID:    {self.accidents[_][0]}\nAdress: {self.accidents[_][2]}\nDetails: {self.accidents[_][3]}",
+                        tile_font_style='H4',
+                        path_to_avatar="assets/m_tab_accidents.png",
+                        card_size=(Window.width, Window.height - 480),
+                        text_post="",
+                        callback=callback))
+        else:
+            pass # Implement to add here a Label to say that the DB table is empty
+        return
+
+    def get_hospitals(self, instance_grid_card):
+        print("HOSPITALS --------------------------------------------------------------")
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        menu_items = [
+            {'viewclass': 'MDMenuItem',
+            'text': 'Remove',
+            'callback': self.callback_for_menu_items}
+            for _ in range(1)
+        ]
+        # Implement a method to check empty tables and change above!
+        if(self.db != None):
+            try:
+                self.hospitals = self.db.get_info("Hospital", "*")
+            except Exception as ex:
+                print(ex)
+                return
+            for _ in range(len(self.hospitals)):
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        name_data=f"{self.hospitals[_][1]}\nID:    {self.hospitals[_][0]}\nAdress: {self.hospitals[_][2]}\n",
+                        tile_font_style='H4',
+                        path_to_avatar="assets/m_tab_hospitals.png",
+                        card_size=(Window.width, Window.height - 480),
+                        text_post="",
+                        callback=callback))
+        else:
+            pass # Implement to add here a Label to say that the DB table is empty
+        return
+
+    def get_ambulances(self, instance_grid_card):
+        print("AMBULANCES -------------------------------------------------------------")
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        menu_items = [
+            {'viewclass': 'MDMenuItem',
+            'text': 'Remove',
+            'callback': self.callback_for_menu_items}
+            for _ in range(1)
+        ]
+        # Implement a method to check empty tables and change above!
+        if(self.db != None):
+            try:
+                self.ambulances = self.db.get_info("Ambulance", "*")
+            except Exception as ex:
+                print(ex)
+                return
+            for _ in range(len(self.ambulances)):
+                # 706F6F
+                # FFAA00
+                if(p[_][4] == 0):
+                    s = "assets/m_tab_ambulances_0.png"
+                elif(p[_][4] == 1):
+                    s = "assets/m_tab_ambulances_1.png"
+                else:
+                    s = "assets/m_tab_ambulances_1.png"
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        name_data=f"{self.ambulances[_][2]}\nID:    {self.ambulances[_][0]}",
+                        tile_font_style='H4',
+                        path_to_avatar=s,
+                        card_size=(Window.width, Window.height - 480),
+                        text_post=f"Producer:          {self.ambulances[_][1]}\nCapacity:     {self.ambulances[_][3]} persons",
+                        callback=callback))
+        else:
+            pass # Implement to add here a Label to say that the DB table is empty
+        return
+
+    def get_doctors(self, instance_grid_card):
+        print("DOCTORS ----------------------------------------------------------------")
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        menu_items = [
+            {'viewclass': 'MDMenuItem',
+            'text': 'Remove',
+            'callback': self.callback_for_menu_items}
+            for _ in range(1)
+        ]
+        # Implement a method to check empty tables and change above!
+        if(self.db != None):
+            try:
+                self.doctors = self.db.get_info("Doctor", "*")
+            except Exception as ex:
+                print(ex)
+                return
+            for _ in range(len(self.doctors)):
+                if(p[_][3] == "M"):
+                    s = "assets/m_tab_doctors_m.png"
+                elif(p[_][3] == "F"):
+                    s = "assets/m_tab_doctors_f.png"
+                else:
+                    s = "assets/m_tab_doctors_m.png"
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        name_data=f"{self.doctors[_][2]} {self.doctors[_][1]} ({self.doctors[_][3]})\nID:    {self.doctors[_][0]}",
+                        tile_font_style='H4',
+                        path_to_avatar=s,
+                        card_size=(Window.width, Window.height - 480),
+                        text_post=f"Birthday:          {self.doctors[_][4]}",
+                        callback=callback))
+        else:
+            pass # Implement to add here a Label to say that the DB table is empty
+        return
+
+    def get_patients(self, instance_grid_card):
+        print("PATIENTS ---------------------------------------------------------------")
+        """Adds MDCardPost objects to the screen Cards
+        when the screen is open."""
+
+        from kivymd.cards import MDCardPost
+
+        def callback(instance, value):
+            if value is None:
+                toast('Delete post %s' % str(instance))
+            elif isinstance(value, int):
+                toast('Set like in %d stars' % value)
+            elif isinstance(value, str):
+                toast('Repost with %s ' % value)
+            elif isinstance(value, list):
+                toast(value[1])
+
+        menu_items = [
+            {'viewclass': 'MDMenuItem',
+            'text': 'Remove',
+            'callback': self.callback_for_menu_items}
+            for _ in range(1)
+        ]
+        # Implement a method to check empty tables and change above!
+        if(self.db != None):
+            try:
+                self.doctors = self.db.get_info("Patient", "*")
+            except Exception as ex:
+                print(ex)
+                return
+            for _ in range(len(self.doctors)):
+                if(p[_][3] == "M"):
+                    s = "assets/m_tab_pacients_m.png"
+                elif(p[_][3] == "F"):
+                    s = "assets/m_tab_pacients_f.png"
+                else:
+                    s = "assets/m_tab_pacients_m.png"
+                instance_grid_card.add_widget(
+                    MDCardPost(
+                        right_menu=menu_items, swipe=True,
+                        name_data=f"{self.doctors[_][2]} {self.doctors[_][1]} ({self.doctors[_][3]})\nID:    {self.doctors[_][0]}",
+                        tile_font_style='H4',
+                        path_to_avatar=s,
+                        card_size=(Window.width, Window.height - 480),
+                        text_post=f"Birthday:          {self.doctors[_][4]}\nBlood Type:     {self.doctors[_][5]}\nRH:                      {self.doctors[_][6]}",
+                        callback=callback))
+        else:
+            pass # Implement to add here a Label to say that the DB table is empty
         return
 
     # CUSTOM ========================================================================
