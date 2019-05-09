@@ -1,9 +1,13 @@
 # Mergency - Ambulance Sync
 
+<p align="center">
+  <img width="460" height="300" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/logo_final.png">
+</p>
+
 Mergency este o aplicatie desktop care permite gestionarea ambulantelor al mai multora
 spitale in situatii de emergenta precum accidentele sau emergentele de orice fel.
 
-## Baza de date Oracle va retine urmatoarele entitati:
+## Baza de date va retine urmatoarele entitati:
 - Accident
 - Hospital
 - Ambulance
@@ -14,12 +18,16 @@ Baza de date respectiva va permite prin interfata utilizator sa se asigneze pers
 si respectiv ambulanta cu caracteristicele cele mai potrivite pentru emergentele care
 se verifica intr-un oras dintr-un judet specific.
 
+<p align="center">
+  <img width="460" height="130" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/oracle.png">
+</p>
+
 O data ce se verifica un accident, controlul pe back-end va triggera un semnal pe
 front-end care va ezplica situatia generala si utilizatorul va putea sa aleaga care
 ambulanta sa trimita la locul accidentului pentru a furniza servicii de primul ajutor
 
 Anumite tabele precum Doctor sau Ambulance contin si campuri care vor stabili daca
-sunt disponibili pentru a primi pacientii accidentului sau daca sunt deja ocupati cu
+sunt disponibili pentru a primii pacientii accidentului sau daca sunt deja ocupati cu
 un alt accident si trebuie sa fie pusi in asteptare.
 
 Relatiile tabelelor sunt stabilite printr-un sistem de chei primare si externe catre
@@ -38,7 +46,7 @@ Front-end-ul este gestionat de catre libreria Kivy care permite dezvoltarea unei
 interfete utilizator eleganta si functionala.
 
 Sistemul operativ gazda folosit pentru development este Linux Mint 19.1 iar se va
-implementa si un fisier Bash pentru a automatiza instalarea si ocnfigurarea tuturor
+implementa si un fisier Bash pentru a automatiza instalarea si configurarea tuturor
 dependentelor necesare pentru aplicatie pe orice sistem Unix Like cu gestor de pachete
 APT deci bazat pe Debian.
 Build-urile ar trebui sa fie posibile si pentru Mac OS la fel cum si pentru Windows dar
