@@ -773,9 +773,9 @@ class Mergency(App, Designer):
             for _ in range(len(self.ambulances)):
                 # 706F6F
                 # FFAA00
-                if(p[_][4] == 0):
+                if(self.ambulances[_][4] == 0):
                     s = "assets/m_tab_ambulances_0.png"
-                elif(p[_][4] == 1):
+                elif(self.ambulances[_][4] == 1):
                     s = "assets/m_tab_ambulances_1.png"
                 else:
                     s = "assets/m_tab_ambulances_1.png"
@@ -823,9 +823,9 @@ class Mergency(App, Designer):
                 print(ex)
                 return
             for _ in range(len(self.doctors)):
-                if(p[_][3] == "M"):
+                if(self.doctors[_][3] == "M"):
                     s = "assets/m_tab_doctors_m.png"
-                elif(p[_][3] == "F"):
+                elif(self.doctors[_][3] == "F"):
                     s = "assets/m_tab_doctors_f.png"
                 else:
                     s = "assets/m_tab_doctors_m.png"
@@ -868,25 +868,25 @@ class Mergency(App, Designer):
         # Implement a method to check empty tables and change above!
         if(self.db != None):
             try:
-                self.doctors = self.db.get_info("Patient", "*")
+                self.patients = self.db.get_info("Patient", "*")
             except Exception as ex:
                 print(ex)
                 return
-            for _ in range(len(self.doctors)):
-                if(p[_][3] == "M"):
+            for _ in range(len(self.patients)):
+                if(self.patients[_][3] == "M"):
                     s = "assets/m_tab_pacients_m.png"
-                elif(p[_][3] == "F"):
+                elif(self.patients[_][3] == "F"):
                     s = "assets/m_tab_pacients_f.png"
                 else:
                     s = "assets/m_tab_pacients_m.png"
                 instance_grid_card.add_widget(
                     MDCardPost(
                         right_menu=menu_items, swipe=True,
-                        name_data=f"{self.doctors[_][2]} {self.doctors[_][1]} ({self.doctors[_][3]})\nID:    {self.doctors[_][0]}",
+                        name_data=f"{self.patients[_][2]} {self.patients[_][1]} ({self.patients[_][3]})\nID:    {self.patients[_][0]}",
                         tile_font_style='H4',
                         path_to_avatar=s,
                         card_size=(Window.width, Window.height - 480),
-                        text_post=f"Birthday:          {self.doctors[_][4]}\nBlood Type:     {self.doctors[_][5]}\nRH:                      {self.doctors[_][6]}",
+                        text_post=f"Birthday:          {self.patients[_][4]}\nBlood Type:     {self.patients[_][5]}\nRH:                      {self.patients[_][6]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty
