@@ -668,7 +668,11 @@ class Mergency(App, Designer):
 
         def callback(instance, value):
             if value is None:
-                toast('Delete post %s' % str(instance))
+                current = instance.card_shifted.id
+                self.db.delete_record(f"Accident", "accident_id", int(current))
+                self.remove_cards(instance_grid_card)
+                self.get_accidents(instance_grid_card)
+                toast('Delete Accident %s' % str(current))
             elif isinstance(value, int):
                 toast('Set like in %d stars' % value)
             elif isinstance(value, str):
@@ -698,6 +702,7 @@ class Mergency(App, Designer):
                         path_to_avatar="assets/m_tab_accidents.png",
                         card_size=(Window.width, Window.height - 480),
                         text_post="",
+                        id=f"{self.accidents[_][0]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty
@@ -712,7 +717,11 @@ class Mergency(App, Designer):
 
         def callback(instance, value):
             if value is None:
-                toast('Delete post %s' % str(instance))
+                current = instance.card_shifted.id
+                self.db.delete_record(f"Hospital", "hospital_id", int(current))
+                self.remove_cards(instance_grid_card)
+                self.get_hospitals(instance_grid_card)
+                toast('Delete Hospital %s' % str(current))
             elif isinstance(value, int):
                 toast('Set like in %d stars' % value)
             elif isinstance(value, str):
@@ -742,6 +751,7 @@ class Mergency(App, Designer):
                         path_to_avatar="assets/m_tab_hospitals.png",
                         card_size=(Window.width, Window.height - 480),
                         text_post="",
+                        id=f"{self.hospitals[_][0]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty
@@ -756,7 +766,11 @@ class Mergency(App, Designer):
 
         def callback(instance, value):
             if value is None:
-                toast('Delete post %s' % str(instance))
+                current = instance.card_shifted.id
+                self.db.delete_record(f"Ambulance", "ambulance_id", int(current))
+                self.remove_cards(instance_grid_card)
+                self.get_ambulances(instance_grid_card)
+                toast('Delete Ambulance %s' % str(current))
             elif isinstance(value, int):
                 toast('Set like in %d stars' % value)
             elif isinstance(value, str):
@@ -794,6 +808,7 @@ class Mergency(App, Designer):
                         path_to_avatar=s,
                         card_size=(Window.width, Window.height - 480),
                         text_post=f"Producer:          {self.ambulances[_][1]}\nCapacity:     {self.ambulances[_][3]} persons",
+                        id=f"{self.ambulances[_][0]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty
@@ -808,7 +823,11 @@ class Mergency(App, Designer):
 
         def callback(instance, value):
             if value is None:
-                toast('Delete post %s' % str(instance))
+                current = instance.card_shifted.id
+                self.db.delete_record(f"Doctor", "doctor_id", int(current))
+                self.remove_cards(instance_grid_card)
+                self.get_doctors(instance_grid_card)
+                toast('Delete Doctor %s' % str(current))
             elif isinstance(value, int):
                 toast('Set like in %d stars' % value)
             elif isinstance(value, str):
@@ -844,6 +863,7 @@ class Mergency(App, Designer):
                         path_to_avatar=s,
                         card_size=(Window.width, Window.height - 480),
                         text_post=f"Birthday:          {self.doctors[_][4]}",
+                        id=f"{self.doctors[_][0]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty
@@ -858,7 +878,11 @@ class Mergency(App, Designer):
 
         def callback(instance, value):
             if value is None:
-                toast('Delete post %s' % str(instance))
+                current = instance.card_shifted.id
+                self.db.delete_record(f"Patient", "patient_id", int(current))
+                self.remove_cards(instance_grid_card)
+                self.get_patients(instance_grid_card)
+                toast('Delete Patient %s' % str(current))
             elif isinstance(value, int):
                 toast('Set like in %d stars' % value)
             elif isinstance(value, str):
@@ -894,6 +918,7 @@ class Mergency(App, Designer):
                         path_to_avatar=s,
                         card_size=(Window.width, Window.height - 480),
                         text_post=f"Birthday:          {self.patients[_][4]}\nBlood Type:     {self.patients[_][5]}\nRH:                      {self.patients[_][6]}",
+                        id=f"{self.patients[_][0]}",
                         callback=callback))
         else:
             pass # Implement to add here a Label to say that the DB table is empty

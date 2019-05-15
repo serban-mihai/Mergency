@@ -200,6 +200,34 @@ class Database():
             pass
         return res
 
+    # Universal Methods for TRUNCATE and DROP like queries ===============================================
+    def truncate_table(self, table_name):
+        print(f"> DEBUG: Truncating all data From {WAR}{PFIX}{table_name}{END}")
+        self.query(f"TRUNCATE TABLE {PFIX}{table_name}")
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
+
+    def drop_table(self, table_name):
+        print(f"> DEBUG: Dropping table {WAR}{PFIX}{table_name}{END}")
+        self.query(f"DROP TABLE {PFIX}{table_name}")
+        try:
+            self.conn.commit()
+            
+        except Exception:
+            pass
+
+    # Universal Method for DELETE like queries ===============================================
+    def delete_record(self, table_name, element_id, condition):
+        print(f"> DEBUG: Deleting {element_id} From {WAR}{PFIX}{table_name}{END}")
+        self.query(f"DELETE FROM {PFIX}{table_name}  \
+                     WHERE {element_id} = {condition}")
+        try:
+            self.conn.commit()
+        except Exception:
+            pass
+
     # DEV TOOLS ===============================================================================
     def dummy_insert(self):
         print(f"{WAR}INSERT ========================================================================{END}")
