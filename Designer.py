@@ -245,6 +245,17 @@ manager = '''
 
 <Manager@Screen>
     name: 'manager'
+    on_enter:
+        app.remove_cards(accidents)
+        app.remove_cards(hospitals)
+        app.remove_cards(ambulances)
+        app.remove_cards(doctors)
+        app.remove_cards(patients)
+        app.get_accidents(accidents)
+        app.get_accidents(hospitals)
+        app.get_accidents(ambulances)
+        app.get_accidents(doctors)
+        app.get_accidents(patients)
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'
@@ -697,7 +708,7 @@ database = '''
                 id: host
                 hint_text: "Host"
                 text: "80.96.123.131"
-                helper_text: "Insert here the DB host (IP Adress)"
+                helper_text: "The Database Host (IP Adress)"
                 helper_text_mode: "on_focus"
                 required: True
 
@@ -705,7 +716,7 @@ database = '''
                 id: user
                 hint_text: "User"
                 text: "hr"
-                helper_text: "Insert here the DB user"
+                helper_text: "The Database User"
                 helper_text_mode: "on_focus"
                 required: True
 
@@ -713,7 +724,7 @@ database = '''
                 id: password
                 hint_text: "Password"
                 text: "oracletest"
-                helper_text: "Insert here the DB password"
+                helper_text: "The Database Password"
                 helper_text_mode: "on_focus"
                 required: True
 
@@ -721,7 +732,7 @@ database = '''
                 id: service
                 hint_text: "Service"
                 text: "ora09"
-                helper_text: "Insert here the DB service"
+                helper_text: "The Database Service"
                 helper_text_mode: "on_focus"
                 required: True
 
@@ -729,7 +740,7 @@ database = '''
                 id: port
                 hint_text: "Port"
                 text: "1521"
-                helper_text: "Insert here the DB port"
+                helper_text: "The Database Port"
                 helper_text_mode: "on_focus"
                 required: True
 
