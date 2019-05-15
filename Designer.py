@@ -245,12 +245,6 @@ manager = '''
 
 <Manager@Screen>
     name: 'manager'
-    # on_enter:
-    #     app.get_accidents(accidents)
-    #     app.get_hospitals(hospitals)
-    #     app.get_ambulances(ambulances)
-    #     app.get_doctors(doctors)
-    #     app.get_patients(patients)
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'
@@ -260,7 +254,9 @@ manager = '''
             name: 'accidents'
             text: "Accidents"
             icon: "playlist-play"  
-            on_tab_press: app.get_accidents(accidents)
+            on_tab_press:
+                app.remove_cards(accidents)
+                app.get_accidents(accidents)
 
             ScrollView:
                 do_scroll_x: False
@@ -282,7 +278,9 @@ manager = '''
             name: 'hospitals'
             text: 'Hospitals'
             icon: "movie"
-            on_tab_press: app.get_hospitals(hospitals)
+            on_tab_press: 
+                app.remove_cards(hospitals)
+                app.get_hospitals(hospitals)
 
             ScrollView:
                 do_scroll_x: False
@@ -303,7 +301,9 @@ manager = '''
             name: 'ambulances'
             text: 'Ambulances'
             icon: "language-python"
-            on_tab_press: app.get_ambulances(ambulances)
+            on_tab_press: 
+                app.remove_cards(ambulances)
+                app.get_ambulances(ambulances)
 
             ScrollView:
                 do_scroll_x: False
@@ -324,7 +324,9 @@ manager = '''
             name: 'doctors'
             text: 'Doctors'
             icon: "language-cpp"
-            on_tab_press: app.get_doctors(doctors)
+            on_tab_press: 
+                app.remove_cards(doctors)
+                app.get_doctors(doctors)
 
             ScrollView:
                 do_scroll_x: False
@@ -345,7 +347,9 @@ manager = '''
             name: 'patients'
             text: 'Patients'
             icon: "language-php"
-            on_tab_press: app.get_patients(patients)
+            on_tab_press: 
+                app.remove_cards(patients)
+                app.get_patients(patients)
 
             ScrollView:
                 do_scroll_x: False

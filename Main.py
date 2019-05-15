@@ -647,6 +647,13 @@ class Mergency(App, Designer):
         else:
             pass
         return
+
+    def remove_cards(self, tab):
+        if(len(tab.children) != 0):
+            tab.clear_widgets()
+        else:
+            pass
+        return
     # IMPORTANT
     # Need to separate these methods into update and refresh for correct
     # content management, at this moment everytime a tab is accesed it
