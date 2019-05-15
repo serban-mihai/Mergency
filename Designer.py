@@ -247,15 +247,7 @@ manager = '''
     name: 'manager'
     on_enter:
         app.remove_cards(accidents)
-        app.remove_cards(hospitals)
-        app.remove_cards(ambulances)
-        app.remove_cards(doctors)
-        app.remove_cards(patients)
         app.get_accidents(accidents)
-        app.get_accidents(hospitals)
-        app.get_accidents(ambulances)
-        app.get_accidents(doctors)
-        app.get_accidents(patients)
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'
