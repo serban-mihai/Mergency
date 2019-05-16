@@ -131,13 +131,15 @@ class Mergency(App, Designer):
             toast(instance_button.icon)
 
         if not self.create_stack_floating_buttons:
-            screen = self.main_widget.ids.scr_mngr.get_screen('stack buttons')
+            screen = self.main_widget.ids.scr_mngr.get_screen('manager')
             screen.add_widget(MDStackFloatingButtons(
-                icon='lead-pencil',
+                icon='plus',
                 floating_data={
-                    'Python': 'language-python',
-                    'Php': 'language-php',
-                    'C++': 'language-cpp'},
+                    'Accident': 'map-marker-radius',
+                    'Hospital': 'hospital-building',
+                    'Ambulance': 'ambulance',
+                    'Doctor': 'face',
+                    'Patient': 'wheelchair-accessibility'},
                 callback=set_my_language))
             self.create_stack_floating_buttons = True
 

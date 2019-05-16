@@ -246,6 +246,7 @@ manager = '''
 <Manager@Screen>
     name: 'manager'
     on_enter:
+        app.example_add_stack_floating_buttons()
         app.remove_cards(accidents)
         app.get_accidents(accidents)
     MDTabbedPanel:
@@ -1901,4 +1902,4 @@ class Designer(object):
             Builder.load_string(stack_buttons)
             self.stack_buttons = Factory.StackButtons()
             self.main_widget.ids.scr_mngr.add_widget(self.stack_buttons)
-        self.main_widget.ids.scr_mngr.current = 'stack buttons'
+        self.main_widget.ids.scr_mngr.current = 'manager'
