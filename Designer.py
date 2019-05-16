@@ -611,7 +611,7 @@ dialogs = '''
         size: 3 * dp(48), dp(48)
         pos_hint: {'center_x': .5, 'center_y': .6}
         opposite_colors: True
-        on_release: app.show_example_input_dialog()
+        on_release: app.show_example_input_dialog("random")
 
     MDRaisedButton:
         text: "Open Alert Dialog"

@@ -128,7 +128,21 @@ class Mergency(App, Designer):
         from kivymd.stackfloatingbuttons import MDStackFloatingButtons
 
         def set_my_language(instance_button):
-            toast(instance_button.icon)
+            if(instance_button.icon == "map-marker-radius"):
+                self.show_example_input_dialog("Accident")
+                toast("ACCIDENT")
+            elif(instance_button.icon == "hospital-building"):
+                self.show_example_input_dialog("Hospital")
+                toast("HOSPITAL")
+            elif(instance_button.icon == "ambulance"):
+                self.show_example_input_dialog("Ambulance")
+                toast("AMBULANCE")
+            elif(instance_button.icon == "face"):
+                self.show_example_input_dialog("Doctor")
+                toast("DOCTOR")
+            elif(instance_button.icon == "wheelchair-accessibility"):
+                self.show_example_input_dialog("Patient")
+                toast("PATIENT")
 
         if not self.create_stack_floating_buttons:
             screen = self.main_widget.ids.scr_mngr.get_screen('manager')
@@ -195,7 +209,7 @@ class Mergency(App, Designer):
                 url_on_image=link,
                 path_to_file=os.path.join(self.directory, 'python-3.5.1.zip'),
                 download_complete=self.download_complete,
-                download_hide=self.download_progress_hide
+                download_hide=self.download_progress_hide_floating_labels
             )
             progress.start(self.download_file.ids.box_flt)
         else:
@@ -387,19 +401,33 @@ class Mergency(App, Designer):
                     wait_interval, 0))
                 anim.start(self.snackbar.ids.button)
 
-    def show_example_input_dialog(self):
+    def show_example_input_dialog(self, tab):
         """Creates an instance of the dialog box and displays it
         on the screen for the screen Dialogs."""
+        from kivymd.textfields import MDTextField
 
         def result(text_button, instance):
-            toast(instance.text_field.text)
+            if(text_button == "ADD"):
+                toast("ADD Pressed, insert function here")
+            else:
+                toast("CANCEL Pressed, pass")
+            self.input_dialog = None
 
         if not self.input_dialog:
             from kivymd.dialog import MDInputDialog
 
             self.input_dialog = MDInputDialog(
-                title='Title', hint_text='Hint text', size_hint=(.8, .4),
-                text_button_ok='Ok', events_callback=result)
+                title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .4),
+                text_button_ok='ADD', events_callback=result)
+            # for _ in range(7):
+            #     text_field = MDTextField(
+            #         size_hint=(1, None), height=dp(48),
+            #         hint_text="Second Text Field Test",
+            #         helper_text='The Name of the pacient',
+            #         helper_text_mode='on_focus',
+            #         required=False,
+            #         id=f'{_}')
+            #     self.input_dialog.children[0].children[3].add_widget(text_field)
         self.input_dialog.open()
 
     def show_example_alert_dialog(self):

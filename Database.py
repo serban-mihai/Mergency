@@ -227,7 +227,6 @@ class Database():
             self.conn.commit()
         except Exception:
             pass
-
     # DEV TOOLS ===============================================================================
     def dummy_insert(self):
         print(f"{WAR}INSERT ========================================================================{END}")
