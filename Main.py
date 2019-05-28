@@ -410,6 +410,7 @@ class Mergency(App, Designer):
         def result(text_button, instance):
             if(text_button == "ADD"):
                 toast("ADD Pressed, insert function here")
+                test = self.input_dialog
                 a = self.input_dialog.children[0].children[3].children
                 ar = []
                 for element in reversed(a):
@@ -445,37 +446,52 @@ class Mergency(App, Designer):
             self.input_dialog = MDInputDialog(
                 title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .6),
                 text_button_ok='ADD', events_callback=result)
+            self.input_dialog.children[0].children[4].font_color = [1, 1, 1, 1]
+            self.input_dialog.children[0].children[4].font_size = 15.0
+            self.input_dialog.children[0].children[3].orientation = "vertical"
+            self.input_dialog.children[0].children[3].minimum_height = 300
+            self.input_dialog.children[0].children[3].size_hint_y = 300
+            self.input_dialog.children[0].children[3].center = [400.0, 500.0]
+            # self.input_dialog.children[0].children[3].height = dp(40)
+            # self.input_dialog.children[0].children[3].center_x = 0
+            # self.input_dialog.children[0].children[3].center_y = 0
+            # self.input_dialog.children[0].children[3].minimum_height = 0
+            self.input_dialog.children[0].children[3].padding = [.1, .1, .1, .1]
+            # self.input_dialog.children[0].children[3].pos = [0, 500]
+            self.input_dialog.children[0].children[3].top = 300
+            # self.input_dialog.children[0].children[3].spacing = .1
+            self.input_dialog.children[0].children[3].y = 200
             structure = []
             if(str(tab) == "Accident"):
-                structure.append("accident_id")
-                structure.append("city")
-                structure.append("adress")
-                structure.append("reason")
+                structure.append(("ID", "The ID of the Accident"))
+                structure.append(("City", "The City where the accident happened"))
+                structure.append(("Adress", "The Adress of the accident"))
+                structure.append(("Reason", "Any detail about the cause of the accident"))
             elif(str(tab) == "Hospital"):
-                structure.append("hospital_id")
-                structure.append("name")
-                structure.append("adress")
+                structure.append(("ID", "The ID of the Hospital"))
+                structure.append(("Name", "Hospital's name"))
+                structure.append(("Adress", "Hospital's adress"))
             elif(str(tab) == "Ambulance"):
-                structure.append("ambulance_id")
-                structure.append("model")
-                structure.append("license_plate")
-                structure.append("capacity")
-                structure.append("dispatched")
+                structure.append(("ID", "The ID of the Ambulance"))
+                structure.append(("Model", "Name of the brand that produces it and its model"))
+                structure.append(("License Plate", "The plate serial number"))
+                structure.append(("Capacity", "How many persons can the ambulance carry at once"))
+                structure.append(("Dispatched", ""))
             elif(str(tab) == "Doctor"):
-                structure.append("doctor_id")
-                structure.append("name")
-                structure.append("surname")
-                structure.append("sex")
-                structure.append("birthday")
-                structure.append("available")
+                structure.append(("ID", "The ID of the Doctor"))
+                structure.append(("Name", "Doctor's name"))
+                structure.append(("Surname", "Doctor's surname"))
+                structure.append(("Sex", "Doctor's sex"))
+                structure.append(("Birthday", "Doctor's birthday"))
+                structure.append(("Available", ""))
             elif(str(tab) == "Patient"):
-                structure.append("patient_id")
-                structure.append("name")
-                structure.append("surname")
-                structure.append("sex")
-                structure.append("birthday")
-                structure.append("blood_type")
-                structure.append("rh")
+                structure.append(("ID", "The ID of the Patient"))
+                structure.append(("Name", "Patient's name"))
+                structure.append(("Surname", "Patient's surname"))
+                structure.append(("Sex", "Patient's sex"))
+                structure.append(("Birthday", "Patient's birthday"))
+                structure.append(("Blood Type", "Can either be A, B, AB or 0"))
+                structure.append(("RH", "Can be + or -"))
             for num, field in enumerate(structure, 0):
                 text_field = MDTextField(
                     size_hint=(1, None), height=dp(48),
@@ -483,10 +499,10 @@ class Mergency(App, Designer):
                     helper_text_mode='on_focus',
                     required=False,
                     id=f'{num}')
-                text_field._set_hint(self, structure[num])
+                text_field._set_hint(self, structure[num][0])
+                text_field._set_msg(self, structure[num][1])
                 text_field._set_max_text_length(self, 10)
-                text_field._set_msg(self, "Helper to be added...")
-                text_field.pos_hint = {'center_x': .5, 'center_y': .9}
+                text_field.font_size = 8.0
                 self.input_dialog.children[0].children[3].add_widget(text_field)
         self.input_dialog.open()
 
