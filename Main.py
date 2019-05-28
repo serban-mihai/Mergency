@@ -107,6 +107,7 @@ class Mergency(App, Designer):
         self.ambulances = None
         self.doctors = None
         self.patients = None
+        self.tabs = []
 
     def crop_image_for_tile(self, instance, size, path_to_crop_image):
         """Crop images for Grid screen."""
@@ -409,25 +410,84 @@ class Mergency(App, Designer):
         def result(text_button, instance):
             if(text_button == "ADD"):
                 toast("ADD Pressed, insert function here")
+                a = self.input_dialog.children[0].children[3].children
+                ar = []
+                for element in reversed(a):
+                    ar.append(element.text)
+                if(str(tab) == "Accident"):
+                    self.db.add_accident(ar[1], ar[2], ar[3], ar[4])
+                    self.remove_cards(self.tabs[0])
+                    self.get_accidents(self.tabs[0])
+                elif(str(tab) == "Hospital"):
+                    self.db.add_hospital(ar[1], ar[2], ar[3])
+                    self.remove_cards(self.tabs[1])
+                    self.get_hospitals(self.tabs[1])
+                elif(str(tab) == "Ambulance"):
+                    self.db.add_ambulance(ar[1], ar[2], ar[3], ar[4], ar[5])
+                    self.remove_cards(self.tabs[2])
+                    self.get_ambulances(self.tabs[2])
+                elif(str(tab) == "Doctor"):
+                    self.db.add_doctor(ar[1], ar[2], ar[3], ar[4], ar[5], ar[6])
+                    self.remove_cards(self.tabs[3])
+                    self.get_doctors(self.tabs[3])
+                elif(str(tab) == "Patient"):
+                    self.db.add_patient(ar[1], ar[2], ar[3], ar[4], ar[5], ar[6], ar[7])
+                    self.remove_cards(self.tabs[4])
+                    self.get_patients(self.tabs[4])
             else:
-                toast("CANCEL Pressed, pass")
+                # toast("CANCEL Pressed, pass")
+                pass
             self.input_dialog = None
 
         if not self.input_dialog:
             from kivymd.dialog import MDInputDialog
 
             self.input_dialog = MDInputDialog(
-                title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .4),
+                title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .6),
                 text_button_ok='ADD', events_callback=result)
-            # for _ in range(7):
-            #     text_field = MDTextField(
-            #         size_hint=(1, None), height=dp(48),
-            #         hint_text="Second Text Field Test",
-            #         helper_text='The Name of the pacient',
-            #         helper_text_mode='on_focus',
-            #         required=False,
-            #         id=f'{_}')
-            #     self.input_dialog.children[0].children[3].add_widget(text_field)
+            structure = []
+            if(str(tab) == "Accident"):
+                structure.append("accident_id")
+                structure.append("city")
+                structure.append("adress")
+                structure.append("reason")
+            elif(str(tab) == "Hospital"):
+                structure.append("hospital_id")
+                structure.append("name")
+                structure.append("adress")
+            elif(str(tab) == "Ambulance"):
+                structure.append("ambulance_id")
+                structure.append("model")
+                structure.append("license_plate")
+                structure.append("capacity")
+                structure.append("dispatched")
+            elif(str(tab) == "Doctor"):
+                structure.append("doctor_id")
+                structure.append("name")
+                structure.append("surname")
+                structure.append("sex")
+                structure.append("birthday")
+                structure.append("available")
+            elif(str(tab) == "Patient"):
+                structure.append("patient_id")
+                structure.append("name")
+                structure.append("surname")
+                structure.append("sex")
+                structure.append("birthday")
+                structure.append("blood_type")
+                structure.append("rh")
+            for num, field in enumerate(structure, 0):
+                text_field = MDTextField(
+                    size_hint=(1, None), height=dp(48),
+                    # pos_hint={'center_x': .5, 'center_y': .7},
+                    helper_text_mode='on_focus',
+                    required=False,
+                    id=f'{num}')
+                text_field._set_hint(self, structure[num])
+                text_field._set_max_text_length(self, 10)
+                text_field._set_msg(self, "Helper to be added...")
+                text_field.pos_hint = {'center_x': .5, 'center_y': .9}
+                self.input_dialog.children[0].children[3].add_widget(text_field)
         self.input_dialog.open()
 
     def show_example_alert_dialog(self):
@@ -683,6 +743,14 @@ class Mergency(App, Designer):
             tab.clear_widgets()
         else:
             pass
+        return
+    
+    def retrieve_tabs(self, accident, hospital, ambulance, doctor, patient):
+        self.tabs.append(accident)
+        self.tabs.append(hospital)
+        self.tabs.append(ambulance)
+        self.tabs.append(doctor)
+        self.tabs.append(patient)
         return
     # IMPORTANT
     # Need to separate these methods into update and refresh for correct

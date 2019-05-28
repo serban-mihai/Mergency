@@ -249,6 +249,7 @@ manager = '''
         app.example_add_stack_floating_buttons()
         app.remove_cards(accidents)
         app.get_accidents(accidents)
+        app.retrieve_tabs(accidents, hospitals, ambulances, doctors, patients)
     MDTabbedPanel:
         id: tab_panel
         tab_display_mode: 'text'

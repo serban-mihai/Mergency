@@ -172,7 +172,7 @@ class Database():
             pass
         return
 
-    def add_patient(self, patient_id, name, surname, sex, birthday, blood_type, rh, ambulance_id=None, accident_id=None):
+    def add_patient(self, patient_id, name, surname, sex, birthday, blood_type, rh, ambulance_id=1, accident_id=1):
         arguments = str(inspect.getfullargspec(self.add_patient)[0]).replace("['self', ", "")
         columns = re.sub("[\[\]']", "", arguments)
         print(f"> DEBUG: Inserting {columns} Into: {WAR}{PFIX}Patient{END}")
