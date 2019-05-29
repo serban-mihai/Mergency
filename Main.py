@@ -411,28 +411,29 @@ class Mergency(App, Designer):
             if(text_button == "ADD"):
                 toast("ADD Pressed, insert function here")
                 test = self.input_dialog
+                # temp = self.input_dialog.children[0].children[3].pop()
                 a = self.input_dialog.children[0].children[3].children
                 ar = []
                 for element in reversed(a):
                     ar.append(element.text)
                 if(str(tab) == "Accident"):
-                    self.db.add_accident(ar[1], ar[2], ar[3], ar[4])
+                    self.db.add_accident(ar[0], ar[1], ar[2], ar[3])
                     self.remove_cards(self.tabs[0])
                     self.get_accidents(self.tabs[0])
                 elif(str(tab) == "Hospital"):
-                    self.db.add_hospital(ar[1], ar[2], ar[3])
+                    self.db.add_hospital(ar[0], ar[1], ar[2])
                     self.remove_cards(self.tabs[1])
                     self.get_hospitals(self.tabs[1])
                 elif(str(tab) == "Ambulance"):
-                    self.db.add_ambulance(ar[1], ar[2], ar[3], ar[4], ar[5])
+                    self.db.add_ambulance(ar[0], ar[1], ar[2], ar[3], ar[4])
                     self.remove_cards(self.tabs[2])
                     self.get_ambulances(self.tabs[2])
                 elif(str(tab) == "Doctor"):
-                    self.db.add_doctor(ar[1], ar[2], ar[3], ar[4], ar[5], ar[6])
+                    self.db.add_doctor(ar[0], ar[1], ar[2], ar[3], ar[4], ar[5])
                     self.remove_cards(self.tabs[3])
                     self.get_doctors(self.tabs[3])
                 elif(str(tab) == "Patient"):
-                    self.db.add_patient(ar[1], ar[2], ar[3], ar[4], ar[5], ar[6], ar[7])
+                    self.db.add_patient(ar[0], ar[1], ar[2], ar[3], ar[4], ar[5], ar[6])
                     self.remove_cards(self.tabs[4])
                     self.get_patients(self.tabs[4])
             else:
@@ -444,40 +445,42 @@ class Mergency(App, Designer):
             from kivymd.dialog import MDInputDialog
 
             self.input_dialog = MDInputDialog(
-                title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .6),
+                title=f'Add a new {tab}', hint_text=tab, size_hint=(.8, .8),
                 text_button_ok='ADD', events_callback=result)
+            # About the Label of the Dialog
             self.input_dialog.children[0].children[4].font_color = [1, 1, 1, 1]
             self.input_dialog.children[0].children[4].font_size = 15.0
+            # About the BoxLayout of the individual lables
             self.input_dialog.children[0].children[3].orientation = "vertical"
-            self.input_dialog.children[0].children[3].minimum_height = 300
-            self.input_dialog.children[0].children[3].size_hint_y = 300
+            self.input_dialog.children[0].children[3].minimum_height = 400
+            self.input_dialog.children[0].children[3].size_hint_y = 400
             self.input_dialog.children[0].children[3].center = [400.0, 500.0]
-            # self.input_dialog.children[0].children[3].height = dp(40)
-            # self.input_dialog.children[0].children[3].center_x = 0
-            # self.input_dialog.children[0].children[3].center_y = 0
-            # self.input_dialog.children[0].children[3].minimum_height = 0
+            self.input_dialog.children[0].children[3].height = 400
             self.input_dialog.children[0].children[3].padding = [.1, .1, .1, .1]
-            # self.input_dialog.children[0].children[3].pos = [0, 500]
             self.input_dialog.children[0].children[3].top = 300
-            # self.input_dialog.children[0].children[3].spacing = .1
             self.input_dialog.children[0].children[3].y = 200
+            self.input_dialog.children[0].children[3].children.pop(0)
             structure = []
             if(str(tab) == "Accident"):
+                self.input_dialog.size_hint = [0.8, 0.55]
                 structure.append(("ID", "The ID of the Accident"))
                 structure.append(("City", "The City where the accident happened"))
                 structure.append(("Adress", "The Adress of the accident"))
                 structure.append(("Reason", "Any detail about the cause of the accident"))
             elif(str(tab) == "Hospital"):
+                self.input_dialog.size_hint = [0.8, 0.45]
                 structure.append(("ID", "The ID of the Hospital"))
                 structure.append(("Name", "Hospital's name"))
                 structure.append(("Adress", "Hospital's adress"))
             elif(str(tab) == "Ambulance"):
+                self.input_dialog.size_hint = [0.8, 0.65]
                 structure.append(("ID", "The ID of the Ambulance"))
                 structure.append(("Model", "Name of the brand that produces it and its model"))
                 structure.append(("License Plate", "The plate serial number"))
                 structure.append(("Capacity", "How many persons can the ambulance carry at once"))
                 structure.append(("Dispatched", ""))
             elif(str(tab) == "Doctor"):
+                self.input_dialog.size_hint = [0.8, 0.72]
                 structure.append(("ID", "The ID of the Doctor"))
                 structure.append(("Name", "Doctor's name"))
                 structure.append(("Surname", "Doctor's surname"))
@@ -485,6 +488,7 @@ class Mergency(App, Designer):
                 structure.append(("Birthday", "Doctor's birthday"))
                 structure.append(("Available", ""))
             elif(str(tab) == "Patient"):
+                self.input_dialog.size_hint = [0.8, 0.8]
                 structure.append(("ID", "The ID of the Patient"))
                 structure.append(("Name", "Patient's name"))
                 structure.append(("Surname", "Patient's surname"))
@@ -499,10 +503,11 @@ class Mergency(App, Designer):
                     helper_text_mode='on_focus',
                     required=False,
                     id=f'{num}')
+                # About the individual text fields
                 text_field._set_hint(self, structure[num][0])
                 text_field._set_msg(self, structure[num][1])
                 text_field._set_max_text_length(self, 10)
-                text_field.font_size = 8.0
+                text_field.font_size = 15.0
                 self.input_dialog.children[0].children[3].add_widget(text_field)
         self.input_dialog.open()
 
