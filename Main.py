@@ -425,7 +425,7 @@ class Mergency(App, Designer):
                 for element in reversed(a):
                     ar.append(element.text)
                 
-                temp = f"TO_DATE('{ar[4]}','YYYY-MM-DD')"
+                # temp = f"TO_DATE('{ar[4]}','YYYY-MM-DD')"
 
                 if(str(tab) == "Accident"):
                     self.db.add_accident(ar[0], ar[1], ar[2], ar[3])

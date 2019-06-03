@@ -1086,9 +1086,9 @@ about = '''
 
     Image:
         source: 'assets/logo_final.png'
-        size_hint: 0.5, None
-        x: 200
-        y: 400
+        size_hint: 0.6, 0.6
+        x: 150
+        y: 150
         allow_stretch: False
         keep_ratio: True
 
@@ -1102,13 +1102,13 @@ about = '''
         MyMDLabel:
             font_style: 'H5'
             theme_text_color: 'Primary'
-            text: "Welcome to Mergency"
+            text: "Mergency - BD Project"
             halign: 'center'
 
         MyMDLabel:
             font_style: 'H6'
             theme_text_color: 'Primary'
-            text: "Use the navigator on the top left to get ready"
+            text: "Author: Serban Mihai-Ciprian"
             halign: 'center'
 
 '''
