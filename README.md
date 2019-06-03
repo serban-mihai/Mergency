@@ -59,7 +59,9 @@ pentru Python si pentru clientul Oracle
 Aplicatia se prezinta in prima instanta ca o aplicatie mobila care seamana cu orice alta
 aplicatie mobile dar este gandita pentru folosirea sa in ambient Desktop.
 
-**(Insert here splash screen)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_splash.png">
+</p>
 
 Prin intermediul butonului de navigare situat in coltul stangh superior al chenarului
 este posibila chemarea aparitiei unui navigator bar care prezinta urmatoarele optiuni:
@@ -72,7 +74,9 @@ Menu | Descriere | Note
 `Dummy PUSH` | Permite creerea tabelelor si popularea lor cu date de test care vor putea fi folosite in viitor | Necesita de o conexiune valida la baza de date
 `Dummy POP` | Permite eliminarea tuturor tabelelor create prin PUSH pentru a face curatenie in structura bazei de date | Necesita de o conexiune valida la baza de date
 
-**(Insert here navigator screen)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_nav.png">
+</p>
 
 ## Database
 Tab-ul Database contine diferite campuri unde pot sa fie inserate datele necesare pentru 
@@ -80,11 +84,18 @@ conexiunea la baza de date dorita. De default datele serverului de test sunt ins
 la startup dar pot fi modificate oricand pentru a folosit alt host sau alta baza de date Oracle.
 Toate campurile au un nume si o descriere (helper) care apare atunci cand se selecteaza campul.
 
-**(Insert here database screen)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_database.png">
+</p>
 
 O data ce datele sunt inserate se poate incerca conexiunea prin apasarea butonului de **CONNECT**. 
 Daca coneziunea a avut succes un mesaj de debug in consola din care este rulata aplicatia va 
 confirma acest lucru sau in caz contrar va returna o eroare Oracle daca conexiunea nu a avut loc corect.
+
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_terminal_connected.png">
+</p>
+
 Deasemenea dupa ce conexiunea la baza de date este stabilita se poate intrerupe oricand apasand butonul 
 **DISCONNECT**
 
@@ -97,19 +108,23 @@ cu eventuale alte tabele deja prezente pe server-ul de test in timpul developmen
 O data selectionat acest Tab se va putea observa in consola din care s-a lansat aplicatia diferite mesaje de debug
 in legatura cu orice Query este trimis catre server si raspunsul sau la fiecare deasemenea.
 
-**(Insert here debug PUSH log)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_terminal_push.png">
+</p>
 
 Din lipsa de timp nu s-au putut implementa functii asyncrone pentru trimiterea instructiunilor catre host si
 asta se rezolva intr-un freeze momentan al aplicatiei in timp ce functiile isi executa continutul pana cand
 fiecare se sfarseste. Aceasta problema este mai accentuata daca se ruleaza aplicatia de pe sisteme tehnologic
-mai batrane sau daca viteza de conexiune la retea este slaba sau host-ul raspunde greu la squest-uri.
+mai batrane sau daca viteza de conexiune la retea este slaba sau host-ul raspunde greu la request-uri.
 
 ## Dummy POP
 Contrar ca si pentru PUSH, acest Tab permite elminarii instantanee a tuturor tabelelor create prin PUSH si-i se
 aplica toate precizarile facute pentru Tab-ul precedent, inclusiv lipsa de functii asyncrone si mesajele de 
 debug in consola din care s-a rulat aplicatia.
 
-**(Insert here debug POP log)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_terminal_pop.png">
+</p>
 
 La fel cum si pentru PUSH, nici Tab-ul POP va avea vreo-un efect daca mai intai nu s-a stabilit o conexiune 
 valida la o baza de date Oracle.
@@ -121,12 +136,54 @@ Tot de aici este posibila adaugarea sau stergerea manuala al entitatilor din ori
 In caz ca se intra in acest Tab fara o conexiune la baza de date activa el va fi pur si simplu gol
 pana cand o conexiune nu este prezenta si pana cand nu se populeaza respectiv tabelurile cu niste date.
 
-**(Insert here manager empty screen)**
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_empty.png">
+</p>
 
-# About
+Dupa ce conexiunea la baza de date este valida si se foloseste Tab-ul PUSH se vor putea vedea
+instant toate record-urile al tebelelor in Tab-ul Manager
 
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_full.png">
+</p>
 
-# Resurse si Referinte
+Din orice sectiune al Tab-ului manager se poate actiona un buton prezent in coltul drept inferior
+care va prezenta alte 5 butoane pentru a adauga pe rand cate un nou record in ce tabel se doreste
+
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_add.png">
+</p>
+
+La apasarea al acestor butoane va aparea o fereastra de popup personalizata pentru fiecare tabel
+cu propriile sale si posibilitatea de a adauga in campurile stabilite informattile despre noi 
+recorduri care apoi pot sa fie adaugate prin apasarea butonului de **ADD**
+
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_dialog.png">
+</p>
+
+A fost implementata si o functionalitate comoda de selectie al datii de naster (pentru entitatile
+care contin aceasta proprietate) folosind un element din libreria grafica **KivyMD** numit *MDDatePicker* care permite o interactiune intuitiva si care garanteaza inserarea si conversia
+corecta al formatului corect multumita numeroaselor controluri pe backend si de folositea functiei
+*TO_DATE* a lui Oracle SQL.
+
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_calendar.png">
+</p>
+
+Pentru a elimina un record este suficient sa se traga recordul respectiv spre stanga pana cand nu
+va aparea o casuta cu icon-ul unui cos de gunoi care o data apasat va sterge recordul din baza de
+date si va face un update la screen instant al tutuor recordurilor fara cel care tocmai a fost
+eliminat.
+
+<p align="center">
+  <img width="810" height="629" src="https://raw.githubusercontent.com/serban-mihai/Mergency/mihai-dev/assets/doc_manager_delete.png">
+</p>
+
+## About
+Acest Tab contine doar numele autorului si logo-ul oficial al aplicatiei
+
+## Resurse si Referinte
 
 Nume | Ver. | Descriere | Link
 --- | --- | --- | ---
